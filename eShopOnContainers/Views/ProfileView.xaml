@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase
+    x:Class="SentynelAndroidClient.Views.ProfileView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:templates="clr-namespace:SentynelAndroidClient.Views.Templates;assembly=SentynelAndroidClient"
+    xmlns:viewModelBase="clr-namespace:SentynelAndroidClient.ViewModels.Base;assembly=SentynelAndroidClient"
+    xmlns:viewmodels="clr-namespace:SentynelAndroidClient.ViewModels"
+    xmlns:views="clr-namespace:SentynelAndroidClient.Views;assembly=SentynelAndroidClient"
+    xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    Title="MY PROFILE"
+    x:DataType="viewmodels:ProfileViewModel">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Style x:Key="LoginButtonStyle" TargetType="{x:Type Label}">
+                <Setter Property="FontFamily" Value="Montserrat-Regular" />
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+
+            <Style x:Key="MyOrdersLabelStyle" TargetType="{x:Type Label}">
+                <Setter Property="FontFamily" Value="Montserrat-Regular" />
+                <Setter Property="FontSize" Value="{StaticResource MediumSize}" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="Margin" Value="0,12" />
+            </Style>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="LOGOUT" Command="{Binding LogoutCommand}" />
+    </ContentPage.ToolbarItems>
+
+
+</views:ContentPageBase>

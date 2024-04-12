@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase
+    x:Class="SentynelAndroidClient.Views.CandidatView"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:animations="clr-namespace:SentynelAndroidClient.Animations;assembly=SentynelAndroidClient"
+    xmlns:templates="clr-namespace:SentynelAndroidClient.Views.Templates;assembly=SentynelAndroidClient"
+    xmlns:triggers="clr-namespace:SentynelAndroidClient.Triggers;assembly=SentynelAndroidClient"
+    xmlns:viewmodels="clr-namespace:SentynelAndroidClient.ViewModels"
+    xmlns:views="clr-namespace:SentynelAndroidClient.Views;assembly=SentynelAndroidClient"
+    Title="CANDIDAT"
+    x:DataType="viewmodels:CandidatViewModel">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Style x:Key="FilterLabelStyle" TargetType="{x:Type Label}">
+                <Setter Property="TextColor" Value="{StaticResource WhiteColor}" />
+                <Setter Property="HorizontalOptions" Value="Center" />
+                <Setter Property="VerticalOptions" Value="Center" />
+            </Style>
+
+            <animations:StoryBoard x:Key="ProductsAnimation" Target="{x:Reference Candidats}">
+                <animations:FadeInAnimation
+                    Delay="250"
+                    Direction="Up"
+                    Duration="1500" />
+            </animations:StoryBoard>
+
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Triggers>
+        <EventTrigger Event="Appearing">
+            <triggers:BeginAnimation Animation="{StaticResource ProductsAnimation}" />
+        </EventTrigger>
+    </ContentPage.Triggers>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="{DynamicResource FilterIconForTitleImageSource}" Command="{Binding ShowFilterCommand, Mode=OneTime}" />
+    </ContentPage.ToolbarItems>
+    <Grid ColumnSpacing="0" RowSpacing="0">
+        <!--  CANDIDAT  -->
+        <Label
+            IsVisible="{Binding Candidats.Count, Converter={StaticResource DoesNotHaveCountConverter}}"
+            Text="NO CANDIDATS FOUND"
+            HorizontalOptions="Center"
+            VerticalOptions="Center" />
+        <CollectionView
+            x:Name="Candidats"
+            SelectedItem="{Binding SelectedCandidat, Mode=TwoWay}"
+            IsVisible="{Binding Candidats.Count, Converter={StaticResource HasCountConverter}}"
+            ItemsSource="{Binding Candidats, Mode=OneTime}"
+            SelectionMode="Single"
+            SelectionChangedCommand="{Binding CandidatDetailCommand}"
+            SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}}">
+			<CollectionView.ItemsLayout>
+				<GridItemsLayout Orientation="Vertical"
+								 Span="2" 
+                                 VerticalItemSpacing="2"
+                                 HorizontalItemSpacing="10"/>
+			</CollectionView.ItemsLayout>
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <templates:CandidatTemplate />
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <!--  INDICATOR  -->
+		<ActivityIndicator
+            HorizontalOptions="Center"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            VerticalOptions="Center"
+            Color="{StaticResource LightGreenColor}"/>
+
+    
+    </Grid>
+</views:ContentPageBase>
